@@ -5,7 +5,6 @@
         public Car Competitor1 { get; set; }
         public Car Competitor2 { get; set; }
         public float TrackLength { get; set; }
-        private List<Action> effects = new List<Action>();
         private List<Timer> effectTimers = new List<Timer>();
 
         private int randomEffectCooldown = 10000;
