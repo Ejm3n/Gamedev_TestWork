@@ -80,10 +80,8 @@ namespace TestWork
 
         private void CheckRandomEvents()
         {
-            Random rnd = new Random();
-            int chance = rnd.Next(100);
+            int chance = new Random().Next(100);
             Car affectedCar = new Random().Next(2) == 0 ? Competitor1 : Competitor2;
-            // Событие для Competitor1
             if (chance < 10) // 10% шанс на замедление
             {          
                 ChangeCarSpeed(affectedCar, -slowAmount);
