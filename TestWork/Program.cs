@@ -8,7 +8,7 @@
         new Ghost("Ghost", 120, 80, 4, 10, 100, 10, 40, 6,4),
         new Kabbalist("Kabbalist",95,95,3,6,100,15,35,8,0),
         new Jet("Jet",115,85,6,5,90,12,30,5,6),
-        new Healer("Healer",110,70,5,5,70,100,25,10,0)
+        new Healer("Healer",110,70,5,5,70,10,25,10,0)
     };
 
         static void Main(string[] args)
