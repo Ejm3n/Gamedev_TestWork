@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
-using System.Threading.Tasks;
-namespace TestWork
+﻿namespace TestWork
 {
     internal class Race
     {
@@ -13,7 +7,7 @@ namespace TestWork
         public float TrackLength { get; set; }
         private List<Action> effects = new List<Action>();
         private List<Timer> effectTimers = new List<Timer>();
-        
+
         private int randomEffectCooldown = 10000;
         private int slowAmount = 15;
         private int speedIncreaseAmount = 10;
@@ -28,18 +22,19 @@ namespace TestWork
         public void Start()
         {
             Console.WriteLine("The race has started!");
-            
+
             while (Competitor1.DistanceCovered < TrackLength && Competitor2.DistanceCovered < TrackLength)
             {
                 DisplayStatus();
                 UpdateRace();
                 CheckRandomEvents();
-                CheckRandomUniqueAbilities();              
+                CheckRandomUniqueAbilities();
                 Thread.Sleep(1000); // таймер перед следующим кадром
             }
             DetermineWinner();
             DisplayStatus();
         }
+
         public void AddEffect(Action effect, int delayInSeconds)
         {
             Timer timer = null;
@@ -53,10 +48,9 @@ namespace TestWork
             effectTimers.Add(timer);
         }
 
-
         private void CheckRandomUniqueAbilities()
         {
-            Competitor1.UniqueAbility(Competitor2,this);
+            Competitor1.UniqueAbility(Competitor2, this);
             Competitor2.UniqueAbility(Competitor1, this);
         }
 
@@ -74,24 +68,22 @@ namespace TestWork
             {
                 Competitor2.AttackTarget(Competitor1);
             }
-            
         }
-
 
         private void CheckRandomEvents()
         {
             int chance = new Random().Next(100);
             Car affectedCar = new Random().Next(2) == 0 ? Competitor1 : Competitor2;
             if (chance < 10) // 10% шанс на замедление
-            {          
+            {
                 ChangeCarSpeed(affectedCar, -slowAmount);
                 Console.WriteLine($"{affectedCar.Name} ускорен!");
             }
-            else if(chance < 20)
+            else if (chance < 20)
             {
                 ChangeCarSpeed(affectedCar, speedIncreaseAmount);
                 Console.WriteLine($"{affectedCar.Name} ускорен!");
-            }            
+            }
         }
 
         private void ChangeCarSpeed(Car car, int speedChange)
@@ -112,6 +104,7 @@ namespace TestWork
                 restoreSpeedTimer.Dispose();
             };
         }
+
         private void DisplayStatus()
         {
             Console.Clear();

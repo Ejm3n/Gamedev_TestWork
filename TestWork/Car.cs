@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TestWork
+﻿namespace TestWork
 {
 
     abstract class Car
@@ -11,10 +9,10 @@ namespace TestWork
 
         public int HP { get; set; }
         public int Attack { get; set; }
-        public float AttackSpeed { get; set; }
+        public float AttackSpeed { get; set; } // время на перезарядку
 
         private DateTime lastAttackTime;
-        public float DistanceCovered { get; set; }
+        public float DistanceCovered { get; set; } // пройденное расстояние
 
         public int Mana { get; set; } // Текущее значение маны
         public int MaxMana { get; set; } // Максимальное значение маны
@@ -26,7 +24,7 @@ namespace TestWork
 
         protected DateTime lastAbilityTime;
 
-        protected Car(string name, float maxSpeed, int hp, int attack, float attackSpeed, int maxMana, int manaRegenRate,  int manaCost, int abilityCoolDown, int abilityDuration)
+        protected Car(string name, float maxSpeed, int hp, int attack, float attackSpeed, int maxMana, int manaRegenRate, int manaCost, int abilityCoolDown, int abilityDuration)
         {
             Name = name;
             MaxSpeed = maxSpeed;
@@ -54,11 +52,11 @@ namespace TestWork
 
         public virtual void Move(float timeFrame)
         {
-            if(HP>0)
+            if (HP > 0)
             {
                 DistanceCovered += CurrentSpeed * timeFrame;
                 RegenerateMana(timeFrame);
-            }     
+            }
             else
             {
                 Console.WriteLine($"{Name} уничтожен...");
@@ -82,7 +80,7 @@ namespace TestWork
 
         public bool CanPerformAbility()
         {
-            return (DateTime.Now - lastAbilityTime).TotalSeconds >= AbilityCoolDown && Mana>ManaCost && !IsAbilityBlocked && IsAlive();
+            return (DateTime.Now - lastAbilityTime).TotalSeconds >= AbilityCoolDown && Mana > ManaCost && !IsAbilityBlocked && IsAlive();
         }
         public void BlockAbility(int durationSeconds)
         {
@@ -106,7 +104,7 @@ namespace TestWork
             {
                 Random rnd = new Random();
                 int randomAttack = rnd.Next(Attack - 5, Attack + 5);
-                if(randomAttack<=0)
+                if (randomAttack <= 0)
                 {
                     randomAttack = 0;
                     Console.WriteLine($"{Name} промазал!");

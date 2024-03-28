@@ -1,6 +1,5 @@
 ﻿namespace TestWork
 {
-
     class Program
     {
         static List<Car> availableCars = new List<Car>

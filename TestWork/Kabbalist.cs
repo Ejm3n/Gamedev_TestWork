@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TestWork
+﻿namespace TestWork
 {
     class Kabbalist : Car
     {
@@ -21,7 +15,6 @@ namespace TestWork
             {
                 int chance = random.Next(100);
                 base.UniqueAbility(opponent, race);
-                // Шанс самоповреждения
                 if (chance < 10) // 10% вероятность самоповреждения
                 {
                     HP -= selfDamage; // Уменьшение своего HP
