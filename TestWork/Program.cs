@@ -13,9 +13,9 @@
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Dangerous Street Race!");
-            Car competitor1 = ChooseCar("Choose car for Player 1:");
-            Car competitor2 = ChooseCar("Choose car for Player 2:");
+            Console.WriteLine("Добро пожаловать на гонки!");
+            Car competitor1 = ChooseCar("Выберите машину 1:");
+            Car competitor2 = ChooseCar("Выберете машину 2:");
 
             Race race = new Race(competitor1, competitor2, 1000);
             race.Start();
@@ -32,7 +32,7 @@
             Car selectedCar = null;
             while (selectedCar == null)
             {
-                Console.Write("Enter the number of the car: ");
+                Console.Write("Введите номер машины: ");
                 if (int.TryParse(Console.ReadLine(), out int choice) && choice >= 1 && choice <= availableCars.Count)
                 {
                     // Создаем новый экземпляр выбранной машины
@@ -41,7 +41,7 @@
                 }
                 else
                 {
-                    Console.WriteLine("Invalid selection, please try again.");
+                    Console.WriteLine("Что-то пошло не так. Попробуйте снова.");
                 }
             }
             return selectedCar;

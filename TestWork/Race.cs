@@ -20,7 +20,7 @@
 
         public void Start()
         {
-            Console.WriteLine("The race has started!");
+            Console.WriteLine("Поехали!");
 
             while (Competitor1.DistanceCovered < TrackLength && Competitor2.DistanceCovered < TrackLength)
             {
@@ -114,7 +114,7 @@
         private void DetermineWinner()
         {
             var winner = Competitor1.DistanceCovered >= TrackLength ? Competitor1 : Competitor2;
-            Console.WriteLine($"The winner is {winner.Name}!");
+            Console.WriteLine($"Победитель {winner.Name}!");
         }
     }
 }
