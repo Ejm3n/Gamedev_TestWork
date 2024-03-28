@@ -12,9 +12,8 @@
             {
                 Console.WriteLine($"{Name} устанавливает мины, замедляя {opponent.Name}!");
                 base.UniqueAbility(opponent, race);
-                opponent.CurrentSpeed *= opponentSlowDownMultiplier; // Пример замедления
+                opponent.CurrentSpeed *= opponentSlowDownMultiplier;
 
-                // Предположим, эффект временный, возвращаем скорость после задержки
                 race.AddEffect(() => opponent.CurrentSpeed = opponent.MaxSpeed, AbilityDuration); // Восстановление скорости
             }
             else

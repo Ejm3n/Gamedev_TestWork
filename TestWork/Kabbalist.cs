@@ -26,12 +26,11 @@ namespace TestWork
                 {
                     HP -= selfDamage; // Уменьшение своего HP
                     Console.WriteLine($"{Name} демон случайно наносит себе {selfDamage} урона.");
-                    return; // Выход из метода, если произошло самоповреждение
                 }
-                if (chance < 55)
+                else if (chance < 55)
                 {
                     Console.WriteLine($"{Name} блокирует способности {opponent.Name}.");
-                    opponent.BlockAbility(abilityDuration); // Блокировка на 5 секунд
+                    opponent.BlockAbility(abilityDuration); // Блокировка на n секунд
                 }
                 else
                 {

@@ -19,7 +19,6 @@ namespace TestWork
                 Console.WriteLine($"{Name} увеличивает свою мощность и максимальную скорость.");               
                 CurrentSpeed += speedBoost;
                 base.UniqueAbility(opponent, race);
-                // Возвращение скорости в нормальное состояние через 5 секунд
                 race.AddEffect(() => CurrentSpeed -= speedBoost, AbilityDuration);
             }
             else

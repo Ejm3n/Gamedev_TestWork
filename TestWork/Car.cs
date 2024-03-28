@@ -96,7 +96,6 @@ namespace TestWork
                 {
                     IsAbilityBlocked = false;
                     Console.WriteLine($"{Name} снова может использовать способности.");
-                    // При необходимости таймер можно удалять из списка, если он там хранится
                 }, null, durationSeconds * 1000, Timeout.Infinite);
             }
         }
@@ -107,7 +106,7 @@ namespace TestWork
             {
                 Random rnd = new Random();
                 int randomAttack = rnd.Next(Attack - 5, Attack + 5);
-                if(randomAttack<0)
+                if(randomAttack<=0)
                 {
                     randomAttack = 0;
                     Console.WriteLine($"{Name} промазал!");

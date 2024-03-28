@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 namespace TestWork
@@ -14,6 +15,8 @@ namespace TestWork
         private List<Timer> effectTimers = new List<Timer>();
         
         private int randomEffectCooldown = 10000;
+        private int slowAmount = 15;
+        private int speedIncreaseAmount = 10;
 
         public Race(Car competitor1, Car competitor2, float trackLength)
         {
@@ -32,7 +35,7 @@ namespace TestWork
                 UpdateRace();
                 CheckRandomEvents();
                 CheckRandomUniqueAbilities();              
-                Thread.Sleep(1000); // Wait for a bit before next frame
+                Thread.Sleep(1000); // таймер перед следующим кадром
             }
             DetermineWinner();
             DisplayStatus();
@@ -79,50 +82,38 @@ namespace TestWork
         {
             Random rnd = new Random();
             int chance = rnd.Next(100);
+            Car affectedCar = new Random().Next(2) == 0 ? Competitor1 : Competitor2;
             // Событие для Competitor1
             if (chance < 10) // 10% шанс на замедление
-            {
-                var affectedCar = new Random().Next(2) == 0 ? Competitor1 : Competitor2;
-                affectedCar.CurrentSpeed -=15f; // Замедляем на 15
-                Console.WriteLine($"{affectedCar.Name} замедлен!");
-
-                System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(randomEffectCooldown)
-                {
-                    AutoReset = false, // Указываем, что таймер не должен перезапускаться автоматически
-                    Enabled = true     // Включаем таймер сразу
-                };
-
-                // Подписываемся на событие Elapsed таймера
-                restoreSpeedTimer.Elapsed += (sender, e) =>
-                {
-                    affectedCar.CurrentSpeed += 15f; // Восстанавливаем исходную скорость машины
-                    Console.WriteLine($"{affectedCar.Name} восстанавливает свою скорость.");
-                    restoreSpeedTimer.Dispose(); // Освобождаем ресурсы таймера
-                };
+            {          
+                ChangeCarSpeed(affectedCar, -slowAmount);
+                Console.WriteLine($"{affectedCar.Name} ускорен!");
             }
             else if(chance < 20)
             {
-                var affectedCar = new Random().Next(2) == 0 ? Competitor1 : Competitor2;
-                affectedCar.CurrentSpeed += 10f; // ускоряем на 10%
+                ChangeCarSpeed(affectedCar, speedIncreaseAmount);
                 Console.WriteLine($"{affectedCar.Name} ускорен!");
-
-                System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(randomEffectCooldown)
-                {
-                    AutoReset = false, // Указываем, что таймер не должен перезапускаться автоматически
-                    Enabled = true     // Включаем таймер сразу
-                };
-
-                // Подписываемся на событие Elapsed таймера
-                restoreSpeedTimer.Elapsed += (sender, e) =>
-                {
-                    affectedCar.CurrentSpeed -= 10f; // Восстанавливаем исходную скорость машины
-                    Console.WriteLine($"{affectedCar.Name} восстанавливает свою скорость.");
-                    restoreSpeedTimer.Dispose(); // Освобождаем ресурсы таймера
-                };
             }            
         }
 
+        private void ChangeCarSpeed(Car car, int speedChange)
+        {
+            car.CurrentSpeed += slowAmount; // Замедляем
 
+            System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(randomEffectCooldown)
+            {
+                AutoReset = false,
+                Enabled = true
+            };
+
+            // Подписываемся на событие Elapsed таймера
+            restoreSpeedTimer.Elapsed += (sender, e) =>
+            {
+                car.CurrentSpeed -= slowAmount; // Восстанавливаем исходную скорость машины
+                Console.WriteLine($"{car.Name} восстанавливает свою скорость.");
+                restoreSpeedTimer.Dispose();
+            };
+        }
         private void DisplayStatus()
         {
             Console.Clear();

@@ -15,7 +15,7 @@ namespace TestWork
 
         public override void UniqueAbility(Car opponent, Race race)
         {
-            if (CanPerformAbility()) // Проверяем, достаточно ли маны для активации способности
+            if (CanPerformAbility()) 
             {
                 Console.WriteLine($"{Name} становится эфемерным и невосприимчивым к атакам!");
                 isEphemeral = true;
@@ -24,7 +24,7 @@ namespace TestWork
                 {
                     isEphemeral = false;
                     Console.WriteLine($"{Name} больше не эфемерный.");
-                }, null, AbilityDuration, Timeout.Infinite); // Эффект длится 5 секунд
+                }, null, AbilityDuration, Timeout.Infinite); 
             }
             else
             {
@@ -41,12 +41,8 @@ namespace TestWork
             else
             {
                 // В эфемерном состоянии машина также может двигаться, но без взаимодействия с препятствиями или атаками
-                // Это можно дополнительно настроить в зависимости от правил игры
                 DistanceCovered += CurrentSpeed * timeFrame;
             }
-
-            // Дополнительная логика для восстановления маны или других аспектов движения может быть добавлена здесь
         }
     }
-
 }
