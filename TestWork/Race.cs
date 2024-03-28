@@ -5,7 +5,7 @@
         public Car Competitor1 { get; set; }
         public Car Competitor2 { get; set; }
         public float TrackLength { get; set; }
-        private List<Timer> effectTimers = new List<Timer>();
+        private List<System.Timers.Timer> effectTimers = new List<System.Timers.Timer>();
 
         private int randomEffectCooldown = 10000;
         private int slowAmount = 15;
@@ -27,7 +27,7 @@
                 DisplayStatus();
                 UpdateRace();
                 CheckRandomEvents();
-                CheckRandomUniqueAbilities();
+                CheckUniqueAbilities();
                 Thread.Sleep(1000); // таймер перед следующим кадром
             }
             DetermineWinner();
@@ -36,18 +36,28 @@
 
         public void AddEffect(Action effect, int delayInSeconds)
         {
-            Timer timer = null;
-            timer = new Timer(_ =>
-            {
-                effect.Invoke();
-                effectTimers.Remove(timer);
-                timer.Dispose();
-            }, null, delayInSeconds * 1000, Timeout.Infinite);
-
+            System.Timers.Timer timer = new System.Timers.Timer(delayInSeconds * 1000);          
             effectTimers.Add(timer);
+
+            timer.Elapsed += (sender, e) =>
+            {
+                effect.Invoke(); // Вызываем эффект
+
+                // Удаляем таймер из списка, только если он там есть
+                if (effectTimers.Contains(timer))
+                {
+                    effectTimers.Remove(timer);
+                }
+
+                timer.Dispose(); // Освобождаем ресурсы таймера
+            };
+
+            timer.AutoReset = false; // Указываем, что таймер не должен перезапускаться автоматически
+            timer.Enabled = true; // Включаем таймер
         }
 
-        private void CheckRandomUniqueAbilities()
+
+        private void CheckUniqueAbilities()
         {
             Competitor1.UniqueAbility(Competitor2, this);
             Competitor2.UniqueAbility(Competitor1, this);
