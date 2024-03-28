@@ -31,6 +31,10 @@
                     Console.WriteLine($"{Name} демон наносит {abilityDamage} урона {opponent.Name}.");
                 }
             }          
+            else
+            {
+                Console.WriteLine($"{Name} не может использовать способность");
+            }
         }
     }
 

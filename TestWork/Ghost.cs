@@ -25,7 +25,7 @@
             }
             else
             {
-                Console.WriteLine($"{Name} не может использовать способность.");
+                Console.WriteLine($"{Name} не может использовать способность");
             }
         }
 
@@ -38,7 +38,8 @@
             else
             {
                 // В эфемерном состоянии машина также может двигаться, но без взаимодействия с препятствиями или атаками
-                DistanceCovered += CurrentSpeed * timeFrame;
+                DistanceCovered += MaxSpeed * timeFrame;
+                Console.WriteLine($"{Name} неуязвим!");
             }
         }
     }
