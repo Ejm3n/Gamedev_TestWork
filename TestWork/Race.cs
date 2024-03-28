@@ -13,7 +13,7 @@ namespace TestWork
         private List<Action> effects = new List<Action>();
         private List<Timer> effectTimers = new List<Timer>();
         
-        private int randomEffectCooldown;
+        private int randomEffectCooldown = 10000;
 
         public Race(Car competitor1, Car competitor2, float trackLength)
         {
@@ -35,6 +35,7 @@ namespace TestWork
                 Thread.Sleep(1000); // Wait for a bit before next frame
             }
             DetermineWinner();
+            DisplayStatus();
         }
         public void AddEffect(Action effect, int delayInSeconds)
         {
@@ -85,7 +86,7 @@ namespace TestWork
                 affectedCar.CurrentSpeed -=15f; // Замедляем на 15
                 Console.WriteLine($"{affectedCar.Name} замедлен!");
 
-                System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(10000)
+                System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(randomEffectCooldown)
                 {
                     AutoReset = false, // Указываем, что таймер не должен перезапускаться автоматически
                     Enabled = true     // Включаем таймер сразу
@@ -105,7 +106,7 @@ namespace TestWork
                 affectedCar.CurrentSpeed += 10f; // ускоряем на 10%
                 Console.WriteLine($"{affectedCar.Name} ускорен!");
 
-                System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(10000)
+                System.Timers.Timer restoreSpeedTimer = new System.Timers.Timer(randomEffectCooldown)
                 {
                     AutoReset = false, // Указываем, что таймер не должен перезапускаться автоматически
                     Enabled = true     // Включаем таймер сразу
