@@ -11,7 +11,7 @@
 
         public override void UniqueAbility(Car opponent, Race race)
         {
-            if(CanPerformAbility())
+            if(CanPerformAbility() && opponent.IsAlive())
             {
                 int chance = random.Next(100);
                 base.UniqueAbility(opponent, race);
